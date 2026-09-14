@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IS THIS BULLSHIT? — Forensic Rhetoric & Fluff Auditor</title>
+  <meta name="description" content="A comedic yet razor-sharp rhetorical bullshit detector. Paste any press release, LinkedIn hustle post, or crypto pitch for an instant 0-100% BS audit." />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;0,800;1,400&family=Space+Grotesk:wght@400;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="brutalist-theme">
+  <!-- Background Grid Glow -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  
+  <!-- Audio Toggle & Top Bar -->
+  <header class="top-nav">
+    <div class="brand-badge">
+      <span class="badge-dot"></span>
+      <span class="brand-title">BS-AUDIT v3.5 // RHETORICAL DEFENSE SYSTEM</span>
+    </div>
+    <div class="nav-actions">
+      <button id="soundToggleBtn" class="btn-util" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+        <span id="soundIcon">🔊</span> SOUND: <span id="soundStatus">ON</span>
+      </button>
+      <button id="settingsBtn" class="btn-util" title="Configure Custom API Keys">
+        ⚙️ API CONFIG
+      </button>
+      <a href="#methodologyModal" id="methodologyBtn" class="btn-util">📖 METHODOLOGY</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="main-container">
+    <section class="hero-section">
+      <div class="glitch-wrapper">
+        <h1 class="hero-title glitch-text" data-text="IS THIS BULLSHIT?">
+          IS THIS BULLSHIT?
+        </h1>
+      </div>
+      <p class="hero-subtitle">
+        The unapologetic, AI-powered forensic parser for corporate doublespeak, crypto alchemy, LinkedIn hustle theater, and unsubstantiated claims.
+      </p>
+    </section>
+
+    <!-- Input Area & Control Dock -->
+    <section class="workbench-card">
+      <div class="workbench-header">
+        <div class="header-left">
+          <span class="terminal-prompt">&gt; PASTE_SUSPECT_TEXT</span>
+          <span class="char-counter" id="charWordCounter">0 words | 0 / 25,000 chars</span>
+        </div>
+        <div class="preset-pills-container">
+          <span class="preset-label">Try Sample:</span>
+          <div class="preset-pills" id="presetList">
+            <button class="pill-btn" data-preset="layoff">🏢 Layoff Memo</button>
+            <button class="pill-btn" data-preset="linkedin">💼 LinkedIn Guru</button>
+            <button class="pill-btn" data-preset="crypto">🪙 Web3 AI Whitepaper</button>
+            <button class="pill-btn" data-preset="startup">🚀 Pitch Deck Spin</button>
+            <button class="pill-btn" data-preset="sane">🧘 Genuinely Sane Text</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="textarea-wrapper">
+        <textarea
+          id="inputText"
+          placeholder="Paste corporate memos, founder pitches, PR statements, tech announcements, or LinkedIn thought leadership here to begin forensic diagnosis..."
+          spellcheck="false"
+        ></textarea>
+        <div id="textareaWarning" class="textarea-warning hidden">⚠️ Text exceeds 5,000 words. Excess automatically trimmed for safety.</div>
+      </div>
+
+      <div class="workbench-footer">
+        <div class="footer-options">
+          <label class="toggle-label">
+            <input type="checkbox" id="strictModeToggle" checked />
+            <span class="toggle-custom"></span>
+            <span>Ultra-Skeptic Mode (Maximum Cynicism)</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="snarkLevelToggle" checked />
+            <span class="toggle-custom"></span>
+            <span>Spicy Commentary</span>
+          </label>
+        </div>
+        <div class="action-cluster">
+          <button id="clearBtn" class="btn-secondary">CLEAR</button>
+          <button id="analyzeBtn" class="btn-primary">
+            <span class="btn-glow"></span>
+            <span class="btn-text">🔥 AUDIT TEXT NOW</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animated Scanning State (Hidden by default) -->
+    <section id="scanningState" class="scanning-state hidden">
+      <div class="scanner-box">
+        <div class="radar-sweep"></div>
+        <div class="scanner-content">
+          <div class="scanner-spinner"></div>
+          <div class="scanner-msg" id="scannerStatusMessage">Calibrating skepticism sensors...</div>
+          <div class="scanner-progress-bar"><div class="scanner-bar-inner" id="scannerProgress"></div></div>
+          <div class="scanner-subtext" id="scannerSubMessage">Cross-referencing buzzword density and rhetorical fallacies...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Container (Hidden until analysis is ready) -->
+    <section id="resultsContainer" class="results-container hidden">
+      <!-- Top Verdict Banner & Stamp -->
+      <div class="verdict-card" id="verdictCard">
+        <div class="verdict-stamp-container">
+          <div class="verdict-stamp" id="verdictStamp">CERTIFIED GRADE-A HOGWASH</div>
+        </div>
+        <div class="verdict-body">
+          <div class="verdict-badge-row">
+            <span class="status-pill" id="riskTierBadge">RHETORICAL RISK: SEVERE</span>
+            <span class="status-pill" id="readabilityGrade">READABILITY: JARGON GIBBERISH</span>
+          </div>
+          <h2 class="verdict-title" id="verdictHeadline">"A Masterclass in Evasive Gaslighting"</h2>
+          <p class="verdict-summary" id="verdictDescription"></p>
+          <div class="verdict-quote-box" id="verdictSnarkQuote"></div>
+        </div>
+      </div>
+
+      <!-- Score Grid -->
+      <div class="score-grid">
+        <!-- Overall BS Meter -->
+        <div class="metric-card highlight-meter">
+          <div class="metric-header">
+            <span class="metric-tag">OVERALL BS INDEX</span>
+            <span class="metric-info-tooltip" title="0% = Absolute clarity and empirical truth; 100% = Pure unfiltered unadulterated fantasy">ℹ️</span>
+          </div>
+          <div class="meter-circle-wrap">
+            <svg class="circle-svg" viewBox="0 0 120 120">
+              <circle class="circle-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="circle-progress" id="meterProgressCircle" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="meter-data">
+              <span class="meter-number" id="overallScoreVal">0%</span>
+              <span class="meter-sublabel" id="meterSublabel">BS LOAD</span>
+            </div>
+          </div>
+          <div class="meter-caption" id="meterCaption">Requires immediate cognitive hazard quarantine.</div>
+        </div>
+
+        <!-- Fact to Fluff Ratio -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-tag">FACT VS. FLUFF RATIO</span>
+          </div>
+          <div class="ratio-bar-wrapper">
+            <div class="ratio-bar-container">
+              <div class="ratio-fact-bar" id="ratioFactBar" style="width: 15%;"></div>
+              <div class="ratio-fluff-bar" id="ratioFluffBar" style="width: 85%;"></div>
+            </div>
+            <div class="ratio-labels">
+              <span class="fact-text">📊 Substantiated: <strong id="factPct">15%</strong></span>
+              <span class="fluff-text">☁️ Pure Fluff: <strong id="fluffPct">85%</strong></span>
+            </div>
+          </div>
+          <div class="metric-footer-desc" id="factFluffCommentary">
+            Only a microscopic fraction contains falsifiable, concrete data.
+          </div>
+        </div>
+
+        <!-- Fallacy Density -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-tag">FALLACY DENSITY</span>
+          </div>
+          <div class="metric-large-stat">
+            <span id="fallacyDensityVal">8.4</span>
+            <span class="stat-unit">per 100 words</span>
+          </div>
+          <div class="mini-breakdown">
+            <span class="mini-tag" id="weaselCountBadge">14 Weasel Words</span>
+            <span class="mini-tag" id="buzzwordCountBadge">9 Jargon Overdoses</span>
+            <span class="mini-tag" id="leapCountBadge">5 Logical Leaps</span>
+          </div>
+          <div class="metric-footer-desc" id="fallacyCommentary">
+            Contains an astonishing number of rhetorical escape hatches.
+          </div>
+        </div>
+
+        <!-- Rhetorical Posture -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-tag">RHETORICAL SPECIES</span>
+          </div>
+          <div class="species-display">
+            <div class="species-icon" id="speciesEmoji">🎪</div>
+            <div class="species-info">
+              <h4 id="speciesTitle">Corporate Empathy Illusion</h4>
+              <p id="speciesDesc">Hides harsh business metrics beneath pseudo-caring communal jargon.</p>
+            </div>
+          </div>
+          <div class="species-antidote">
+            <strong>💡 Antidote:</strong> <span id="speciesAntidote">Demand simple numeric deliverables without adjectives.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Teardown & Highlighting Section -->
+      <div class="teardown-section">
+        <div class="teardown-header">
+          <div class="teardown-title-group">
+            <h3>🔬 FORENSIC CLAIM TEARDOWN</h3>
+            <p>Click any highlighted claim below to inspect why it failed rhetorical inspection.</p>
+          </div>
+          <div class="filter-badge-group" id="teardownFilters">
+            <button class="filter-pill active" data-filter="all">All Flagged (<span id="totalFlagCount">0</span>)</button>
+            <button class="filter-pill" data-filter="fiction">🚨 Fiction</button>
+            <button class="filter-pill" data-filter="weasel">🦡 Weasel Words</button>
+            <button class="filter-pill" data-filter="source">🧐 Trust Me Bro</button>
+            <button class="filter-pill" data-filter="buzzword">⚡ Buzzword</button>
+            <button class="filter-pill" data-filter="leap">🦘 Logical Leap</button>
+            <button class="filter-pill" data-filter="gaslight">🕯️ Gaslighting</button>
+          </div>
+        </div>
+
+        <!-- Text Viewer with interactive inline highlights -->
+        <div class="interactive-viewer-container">
+          <div class="viewer-toolbar">
+            <span class="viewer-label">LIVE FORENSIC VIEWER</span>
+            <button id="copyAnnotatedTextBtn" class="btn-sm-action">📋 Copy Plain Text</button>
+          </div>
+          <div class="annotated-text-box" id="annotatedTextBox">
+            <!-- Dynamically populated annotated text -->
+          </div>
+        </div>
+
+        <!-- Granular Claims List -->
+        <div class="claims-list-wrapper">
+          <h4 class="claims-list-title">Detailed Violation Breakdown</h4>
+          <div class="claims-grid" id="claimsListContainer">
+            <!-- Dynamic Cards -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Sharing & Export Bar -->
+      <div class="export-bar-card">
+        <div class="export-info">
+          <h4>📢 SPREAD THE TRUTH</h4>
+          <p>Generate a high-res scorecard image or grab a direct permalink hash to shame this rhetoric publicly.</p>
+        </div>
+        <div class="export-actions">
+          <button id="downloadCardBtn" class="btn-action-hero">
+            🖼️ DOWNLOAD SCORECARD (PNG)
+          </button>
+          <button id="copyShareUrlBtn" class="btn-secondary">
+            🔗 COPY SHARE LINK
+          </button>
+          <button id="tweetBtn" class="btn-secondary">
+            🐦 SHARE TO X / TWITTER
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Disclaimer & Satire Notice -->
+    <footer class="page-footer">
+      <div class="footer-divider"></div>
+      <p class="disclaimer-text">
+        <strong>DISCLAIMER:</strong> This tool performs rhetorical, linguistic, and comedic heuristic deconstructions. While it relies on strict logical fallacy recognition and claim decomposition frameworks, scores and snarky verdicts are intended for entertainment, educational critical-thinking drills, and rhetorical defense.
+      </p>
+      <div class="footer-meta">
+        <span>IS THIS BULLSHIT? &copy; <span id="currentYear">2025</span></span>
+        <span>NO DATA STORED ON SERVER &bull; 100% CLIENT / SECURE PROXY</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Popover / Inspector Modal -->
+  <div id="claimPopoverModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-window popover-card">
+      <div class="modal-header">
+        <div class="popover-badge-tag" id="popoverTag">🚨 UNFOUNDED CLAIM</div>
+        <button id="closePopoverBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="popover-quote-block">
+          <span class="quote-icon">“</span>
+          <p id="popoverQuoteText"></p>
+        </div>
+        <div class="popover-detail-row">
+          <strong>Diagnosis:</strong>
+          <span id="popoverDiagnosis"></span>
+        </div>
+        <div class="popover-detail-row">
+          <strong>Why it's BS:</strong>
+          <p id="popoverReasoning"></p>
+        </div>
+        <div class="popover-translation-box">
+          <span class="trans-label">🗣️ Plain English Translation:</span>
+          <p id="popoverTranslation"></p>
+        </div>
+        <div class="popover-severity-bar">
+          <span>Cringe Level:</span>
+          <div class="cringe-meter"><div id="popoverCringeBar" class="cringe-fill"></div></div>
+          <span id="popoverCringePct">95%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal (Custom API Keys) -->
+  <div id="settingsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-window settings-card">
+      <div class="modal-header">
+        <h3>⚙️ ENGINE & API CONFIGURATION</h3>
+        <button id="closeSettingsBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="settings-intro">
+          By default, <strong>IS THIS BULLSHIT?</strong> runs an internal high-speed Neural Heuristic Fallacy Parser in your browser (no keys needed). If you want real LLM deep reasoning, paste your own key below (stored safely only in your local browser storage):
+        </p>
+        <div class="form-group">
+          <label for="engineSelect">Active Engine:</label>
+          <select id="engineSelect" class="form-input">
+            <option value="heuristic" selected>Built-in Forensic Heuristic AI (Free, Zero Latency)</option>
+            <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
+            <option value="anthropic">Anthropic Claude (Claude 3.5 Sonnet)</option>
+            <option value="openrouter">OpenRouter (Any Model)</option>
+          </select>
+        </div>
+        <div class="form-group hidden" id="apiKeyGroup">
+          <label for="customApiKey">API Key:</label>
+          <input type="password" id="customApiKey" class="form-input" placeholder="sk-..." />
+          <small>Keys are never sent to our backend. Direct fetch from browser.</small>
+        </div>
+        <div class="form-group hidden" id="modelSelectGroup">
+          <label for="customModelName">Model Identifier (Optional):</label>
+          <input type="text" id="customModelName" class="form-input" placeholder="e.g. gpt-4o-mini or claude-3-5-sonnet-20241022" />
+        </div>
+        <div class="settings-buttons">
+          <button id="saveSettingsBtn" class="btn-primary">SAVE PREFERENCES</button>
+          <button id="resetSettingsBtn" class="btn-secondary">RESET TO DEFAULT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology Modal -->
+  <div id="methodologyModalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-window methodology-card">
+      <div class="modal-header">
+        <h3>📖 RHETORICAL AUDIT TAXONOMY</h3>
+        <button id="closeMethodologyBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body scrollable-modal">
+        <p>Our auditing engine decomposes text against six core categories of deceptive prose:</p>
+        <ul class="methodology-list">
+          <li><span class="badge-sample badge-fiction">🚨 Pure Fiction</span>: Claims presented as indisputable reality without verifiable empirical evidence or concrete data.</li>
+          <li><span class="badge-sample badge-weasel">🦡 Weasel Words</span>: Evasive qualifiers like <em>"experts agree"</em>, <em>"some say"</em>, <em>"growing consensus"</em>, or passive voice created to avoid accountability.</li>
+          <li><span class="badge-sample badge-source">🧐 Source: Trust Me Bro</span>: Bold statistical assertions or historic breakthroughs with zero citations or methodology.</li>
+          <li><span class="badge-sample badge-buzzword">⚡ Buzzword Overdose</span>: High-syllable jargon density intended to intimidate readers into submission without conveying substance.</li>
+          <li><span class="badge-sample badge-leap">🦘 Logical Leap</span>: Non-sequiturs and causality confusion (e.g. <em>"we drink coffee, therefore revenue will 10x"</em>).</li>
+          <li><span class="badge-sample badge-gaslight">🕯️ Corporate Gaslighting</span>: Wrapping painful realities (layoffs, price gouging, broken promises) in faux-empathy or triumph.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offscreen Canvas for Card Export -->
+  <canvas id="exportCanvas" width="1200" height="675" style="display:none;"></canvas>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

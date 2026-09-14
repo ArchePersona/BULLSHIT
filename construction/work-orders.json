@@ -1,0 +1,23 @@
+{
+  "work_orders": [
+    {
+      "assignment_id": "TASK-1c654ed377dd",
+      "dependencies": [],
+      "engine_status": "COMPLETED",
+      "expected_outputs": [
+        "artifacts"
+      ],
+      "objective": "Assumptions\n- Open public access with no mandatory user authentication or sign-up friction.\n- Analysis performed via structured LLM prompt pipelines returning strict JSON for UI rendering.\n- Server-side API key management and per-IP rate limiting to prevent quota exhaustion and abuse.\n- Responsive, modern web stack (Next.js / Tailwind CSS) deployable to standard remote serverless runtimes.\nCore Capabilities\n- Instant Text Analysis Pipeline\n  - Input accepting raw text up to 5,000 words with auto-trimming and sample preset prompts.\n  - Multi-dimensional scoring: Overall BS Index (0-100%), Fact-to-Fluff Ratio, Fallacy Density, and Rhetorical Risk level.\n  - Granular claim extraction: highlights specific sentences/phrases flagged for unsupported claims, jargon soup, weasel words, or logical leaps.\n  - Witty Executive Verdict: generates a punchy, humorous summary diagnosis.\n- Interactive Teardown & Highlighting\n  - Interactive text viewer highlighting flagged sections in color-coded badges (e.g., 'Pure Fiction', 'Weasel Words', 'Source: Trust Me Bro', 'Buzzword Overdose').\n  - Click-to-inspect popovers explaining why a flagged phrase failed inspection with snarky but actionable breakdowns.\n- Sharing & Export\n  - One-click scorecard generator creating a downloadable / copyable social card graphic with key metrics and verdict.\n  - Shareable report URL generated from persistent lightweight report hashes.\nData\n- Stateless analysis by default; optional persistent storage (e.g., PostgreSQL or Redis KV) for public shareable report slugs and rate-limiting counters.\nDeliverables\n- Next.js App Router frontend and API route architecture with Tailwind CSS UI components.\n- Robust analysis engine module with prompt templates, JSON schema validation, and fallback handlers.\n- Dynamic scorecard export engine.\n- Comprehensive README and environment configuration template.\nIntegrations\n- OpenAI / Anthropic API for structured JSON reasoning and claim decomposition.\n- OG Image generation library (@vercel/og or Satori) for dynamic preview cards.\nObjective\n- Deliver an instantly usable single-page application where users paste any text (press releases, sales pitches, social posts, articles) and receive an engaging, color-coded 'Bullshit Audit' with a 0-100% BS score, categorized claim teardowns, and humorous commentary.\nProject\n- IS THIS BULLSHIT? \u2014 A comedic yet analytically sharp web application that evaluates text for unsubstantiated claims, logical fallacies, jargon-dense fluff, and deceptive rhetoric.\nSafety & Constraints\n- Per-IP rate limiting and max character caps to control LLM token costs.\n- Content safety filters to reject explicit hate speech while preserving freedom to analyze sensitive or political rhetoric.\n- Clear disclaimer indicating the tool is satirical and for entertainment / rhetorical evaluation purposes.\nUser Experience\n- Loud, polished, brutalist-meets-modern UI with clean typography, snappy micro-interactions, and sound/visual punchiness.\n- Immediate sample presets ('Corporate Layoff Memo', 'LinkedIn Influencer Hustle', 'Crypto Whitepaper Abstract') for zero-click instant testing.\n- Real-time animated analysis progress state with comedic scanning statuses (e.g., 'Calibrating skepticism...', 'Checking for missing citations...').",
+      "phase": "implementation",
+      "result": {
+        "artifact_count": 1,
+        "artifacts": [],
+        "reason_code": "SUCCESS"
+      },
+      "section_id": "artifact_destinations",
+      "status": "COMPLETED",
+      "target": "",
+      "title": "Expand section artifact_destinations"
+    }
+  ]
+}
